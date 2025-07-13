@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { Upload, FileText, Database, Eye, TrendingUp, Shield } from 'lucide-react'
 import axios from 'axios'
-import { buildApiUrl } from '@/lib/config'
+import { buildApiUrl } from '../lib/config'
 
 interface DataUploadProps {
   onDataLoaded: (data: any) => void

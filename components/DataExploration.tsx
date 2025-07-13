@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { BarChart3, Filter, Settings, RefreshCw } from 'lucide-react'
 import axios from 'axios'
-import { buildApiUrl } from '@/lib/config'
+import { buildApiUrl } from '../lib/config'
 
 interface DataExplorationProps {
   data: any

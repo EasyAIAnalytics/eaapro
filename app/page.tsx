@@ -6,7 +6,7 @@ import DataUpload from '@/components/DataUpload'
 import DataExploration from '@/components/DataExploration'
 import DataVisualization from '@/components/DataVisualization'
 import ReportGeneration from '@/components/ReportGeneration'
-import { buildApiUrl } from '@/lib/config'
+import { buildApiUrl } from '../lib/config'
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('upload')
