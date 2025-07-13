@@ -1,0 +1,144 @@
+/* Uiverse.io sidebar styles, adapted for vertical nav and blue theme */
+.sidebar-menu {
+  width: 220px;
+  background: rgba(255,255,255,0.92);
+  background-image: radial-gradient(rgba(10,60,255,0.25) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border-right: 1.5px solid #e5e5f7;
+  box-shadow: 2px 0 8px 0 rgba(10,60,255,0.04);
+  padding-top: 110px; /* Increased to avoid hamburger menu overlap */
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 20;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+.sidebar-closed {
+  transform: translateX(-240px);
+}
+.menu {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #222;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Increased gap between buttons */
+  list-style: none;
+  padding: 0 20px; /* Increased horizontal padding */
+}
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Button-style menu items matching main page buttons */
+.menu .item {
+  width: 100%;
+}
+
+/* From Uiverse.io by sekaiking - adapted with blue theme */
+.menu .link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  color: #1d4ed8;
+  border-radius: 10em;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0.7em 1.5em;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 0 0 0 #1d4ed8;
+  box-sizing: border-box;
+}
+
+.menu .item:hover .link {
+  transform: translateY(-4px) translateX(-2px);
+  box-shadow: 2px 5px 0 0 #1d4ed8;
+  background-color: #3b82f6;
+  color: white;
+}
+
+.menu .item:active .link {
+  transform: translateY(2px) translateX(1px);
+  box-shadow: 0 0 0 0 #1d4ed8;
+}
+
+.menu .link svg {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+/* Hamburger menu with X animation */
+.burger {
+  display: inline-block;
+  cursor: pointer;
+  z-index: 1001; /* Ensure it's above sidebar */
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.burger:hover {
+  background: rgba(10, 60, 255, 0.1);
+}
+
+.burger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #0a3cff;
+  margin: 6px 0;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 0.3s ease;
+}
+
+/* X animation when sidebar is closed */
+.burger-closed span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.burger-closed span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-closed span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.burger:focus {
+  outline: 2px solid #0a3cff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .sidebar-menu {
+    width: 160px;
+    padding-top: 90px; /* Adjusted for mobile */
+    padding-bottom: 16px;
+  }
+  .menu {
+    padding: 0 12px; /* Reduced padding for mobile */
+    gap: 12px; /* Slightly reduced gap for mobile */
+  }
+  .menu .link {
+    font-size: 12px;
+    padding: 0.6em 1.1em; /* Adjusted padding for mobile */
+  }
+} 

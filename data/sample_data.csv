@@ -1,0 +1,21 @@
+Date,Product,Region,Units_Sold,Unit_Price,Total_Sales,Customer_Satisfaction
+2023-01-01,Product A,North,45,25.50,1147.50,4.2
+2023-01-02,Product B,South,32,45.75,1464.00,3.8
+2023-01-03,Product C,East,28,67.25,1883.00,4.5
+2023-01-04,Product D,West,51,33.00,1683.00,4.1
+2023-01-05,Product A,North,38,25.50,969.00,4.3
+2023-01-06,Product B,South,42,45.75,1921.50,3.9
+2023-01-07,Product C,East,35,67.25,2353.75,4.6
+2023-01-08,Product D,West,29,33.00,957.00,4.0
+2023-01-09,Product A,North,47,25.50,1198.50,4.4
+2023-01-10,Product B,South,33,45.75,1509.75,3.7
+2023-01-11,Product C,East,41,67.25,2757.25,4.7
+2023-01-12,Product D,West,36,33.00,1188.00,4.2
+2023-01-13,Product A,North,44,25.50,1122.00,4.1
+2023-01-14,Product B,South,39,45.75,1784.25,3.8
+2023-01-15,Product C,East,31,67.25,2084.75,4.5
+2023-01-16,Product D,West,48,33.00,1584.00,4.3
+2023-01-17,Product A,North,37,25.50,943.50,4.0
+2023-01-18,Product B,South,46,45.75,2104.50,3.9
+2023-01-19,Product C,East,34,67.25,2286.50,4.6
+2023-01-20,Product D,West,43,33.00,1419.00,4.2 

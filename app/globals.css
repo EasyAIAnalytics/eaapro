@@ -1,0 +1,426 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* From Uiverse.io by Voxybuns */ 
+  button {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+  }
+
+  .button_top {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+  }
+
+  button:hover .button_top {
+    /* Pull the button upwards when hovered */
+    transform: translateY(-0.33em);
+  }
+
+  button:active .button_top {
+    /* Push the button downwards when pressed */
+    transform: translateY(0);
+  }
+
+  /* Primary button variant */
+  .btn-primary {
+    --button_color: #3b82f6;
+    --button_outline_color: #1d4ed8;
+  }
+
+  .btn-primary .button_top {
+    color: white;
+  }
+
+  /* Secondary button variant */
+  .btn-secondary {
+    --button_color: #f3f4f6;
+    --button_outline_color: #6b7280;
+  }
+
+  .btn-secondary .button_top {
+    color: #374151;
+  }
+
+  /* Small button variant */
+  .btn-sm {
+    font-size: 14px;
+  }
+
+  .btn-sm .button_top {
+    padding: 0.5em 1em;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md border border-gray-200 p-6;
+  }
+} 
+
+/* Uiverse.io Toggle Switch by WhiteNervosa */
+.switch {
+  display: inline-block;
+}
+.slider {
+  background-color: #ffffff2b;
+  border-radius: 100px;
+  padding: 1px;
+  margin: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  align-items: center;
+  position: relative;
+  display: block;
+  width: 51px;
+  height: 29px;
+  box-shadow: rgba(0, 0, 0, 0.62) 0px 0px 5px inset, rgba(0, 0, 0, 0.21) 0px 0px 0px 24px inset,
+        #275EFE 0px 0px 0px 0px inset, rgba(224, 224, 224, 0.45) 0px 1px 0px 0px;
+}
+.slider::after {
+  content: "";
+  display: flex;
+  top: 2.3px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background-color: #e3e3e3;
+  border-radius: 200px;
+  position: absolute;
+  box-shadow: transparent 0px 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 6px 6px;
+  transition: left 300ms cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  will-change: left, background-color;
+}
+.switch input[type="checkbox"]:checked + .slider {
+  box-shadow: rgba(0, 0, 0, 0.62) 0px 0px 5px inset, #275EFE 0px 0px 0px 2px inset, #275EFE 0px 0px 0px 24px inset,
+        rgba(224, 224, 224, 0.45) 0px 1px 0px 0px;
+}
+.switch input[type="checkbox"]:checked + .slider::after {
+  left: 24px;
+}
+.switch input[type="checkbox"] {
+  display: none;
+} 
+
+/* Chart dropdowns for DataVisualization (Uiverse.io, blue theme) */
+.chart-select-basic.select, .chart-select-advanced.select {
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+  transition: 300ms;
+  color: #1d4ed8;
+  overflow: hidden;
+}
+.chart-select-basic .selected, .chart-select-advanced .selected {
+  background-color: #e5eafe;
+  padding: 5px 16px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100000;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1d4ed8;
+  font-weight: 600;
+  border: 1.5px solid #1d4ed8;
+  box-shadow: 0 2px 8px 0 rgba(29,78,216,0.04);
+}
+.chart-select-basic .arrow, .chart-select-advanced .arrow {
+  position: relative;
+  right: 0px;
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: #1d4ed8;
+  z-index: 100000;
+  transition: 300ms;
+}
+.chart-select-basic .options, .chart-select-advanced .options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #e5eafe;
+  position: relative;
+  top: -100px;
+  opacity: 0;
+  transition: 300ms;
+  border: 1.5px solid #1d4ed8;
+  box-shadow: 0 2px 8px 0 rgba(29,78,216,0.04);
+}
+.chart-select-basic.select:hover > .options, .chart-select-advanced.select:hover > .options {
+  opacity: 1;
+  top: 0;
+}
+.chart-select-basic.select:hover > .selected .arrow, .chart-select-advanced.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+.chart-select-basic .option, .chart-select-advanced .option {
+  border-radius: 5px;
+  padding: 5px 16px;
+  transition: 300ms;
+  background-color: #e5eafe;
+  width: 180px;
+  font-size: 15px;
+  color: #1d4ed8;
+  font-weight: 500;
+}
+.chart-select-basic .option:hover, .chart-select-advanced .option:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+.chart-select-basic .options input[type="radio"], .chart-select-advanced .options input[type="radio"] {
+  display: none;
+}
+.chart-select-basic .options label, .chart-select-advanced .options label {
+  display: inline-block;
+}
+.chart-select-basic .options label::before, .chart-select-advanced .options label::before {
+  content: attr(data-txt);
+}
+.chart-select-basic .options input[type="radio"]:checked + label, .chart-select-advanced .options input[type="radio"]:checked + label {
+  display: none;
+}
+.chart-select-basic .options input[type="radio"]#all:checked + label, .chart-select-advanced .options input[type="radio"]#all:checked + label {
+  display: none;
+}
+.chart-select-basic.select:has(.options input[type="radio"]#all:checked) .selected::before,
+.chart-select-advanced.select:has(.options input[type="radio"]#all:checked) .selected::before {
+  content: attr(data-default);
+}
+/* Dynamic label for selected option */
+.chart-select-basic.select:has(.options input[type="radio"]:checked) .selected::before,
+.chart-select-advanced.select:has(.options input[type="radio"]:checked) .selected::before {
+  content: attr(data-default);
+} 
+
+/* Data Visualization Page Modern Styles */
+.dv-bg {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 60% 20%, #e0eaff 0%, #f5f8fd 100%);
+  padding: 0;
+}
+.dv-card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 32px 0 rgba(29,78,216,0.10), 0 1.5px 8px 0 rgba(29,78,216,0.06);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 950px;
+  margin: 2.5rem auto 2rem auto;
+  position: relative;
+}
+.dv-heading {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.dv-subtitle {
+  font-size: 1.1rem;
+  color: #3b82f6;
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+.dv-action-group {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.dv-save-dropdown {
+  background: #e5eafe;
+  border: 1.5px solid #1d4ed8;
+  border-radius: 0.7em;
+  padding: 0.5em 1.2em;
+  font-size: 1rem;
+  color: #1d4ed8;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.dv-save-dropdown:focus {
+  border: 2px solid #3b82f6;
+}
+.dv-empty-illustration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  color: #a5b4fc;
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.95;
+} 
+
+/* Uiverse.io Info Message for DataVisualization */
+.info {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #509AF8;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+  margin: 0 auto 1.5rem auto;
+}
+.info__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+.info__icon path {
+  fill: #fff;
+}
+.info__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+}
+.info__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+.info__close path {
+  fill: #fff;
+} 
+
+/* Uiverse.io Loader by alexruix (blue theme) */
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  position: relative;
+}
+
+.loader:before {
+  content: '';
+  width: 48px;
+  height: 5px;
+  background: #275EFE50;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow324 0.5s linear infinite;
+}
+
+.loader:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: #275EFE;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  animation: jump7456 0.5s linear infinite;
+}
+
+@keyframes jump7456 {
+  15% {
+    border-bottom-right-radius: 3px;
+  }
+
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+
+  50% {
+    transform: translateY(18px) scale(1, .9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+
+@keyframes shadow324 {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1);
+  }
+} 
+
+/* Uiverse.io Info Notification by andrew-demchenk0 */
+.info {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #509AF8;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+.info__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+
+.info__icon path {
+  fill: #fff;
+}
+
+.info__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+}
+
+.info__close {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.info__close path {
+  fill: #fff;
+} 
