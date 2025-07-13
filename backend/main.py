@@ -38,6 +38,7 @@ app.add_middleware(
         "https://*.vercel.app",  # Allow Vercel deployments
         "https://*.railway.app",  # Allow Railway deployments
         "https://*.render.com",   # Allow Render deployments
+        "https://eaapro.vercel.app",  # Your specific frontend URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
