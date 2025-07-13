@@ -4,12 +4,13 @@ import { useState, useEffect, useRef } from 'react'
 import { BarChart3, PieChart, TrendingUp, BarChart, Download, RefreshCw } from 'lucide-react'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { buildApiUrl } from '@/lib/config';
 
 // API Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-const buildApiUrl = (endpoint: string): string => {
-  return `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-};
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// const buildApiUrl = (endpoint: string): string => {
+//   return `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+// };
 const HeatMap = dynamic(() => import('react-heatmap-grid'), { ssr: false })
 
 // Chart Renderer Component
