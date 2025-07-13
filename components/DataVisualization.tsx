@@ -52,7 +52,7 @@ function ChartRenderer({ chartData }: { chartData: any }) {
           label: chartData.title || 'Data',
           data: values,
           backgroundColor: backgroundColors.slice(0, values.length),
-          borderColor: backgroundColors.slice(0, values.length).map(color => color.replace('0.8', '1')),
+          borderColor: backgroundColors.slice(0, values.length).map((color: string) => color.replace('0.8', '1')),
           borderWidth: 2
         }]
       }
@@ -88,7 +88,7 @@ function ChartRenderer({ chartData }: { chartData: any }) {
           label: chartData.title || 'Data',
           data: values,
           backgroundColor: backgroundColors.slice(0, values.length),
-          borderColor: backgroundColors.slice(0, values.length).map(color => color.replace('0.8', '1')),
+          borderColor: backgroundColors.slice(0, values.length).map((color: string) => color.replace('0.8', '1')),
           borderWidth: 2
         }]
       }
@@ -136,8 +136,8 @@ function ChartRenderer({ chartData }: { chartData: any }) {
         yValues = Array.isArray(data.y) ? data.y : [data.y]
       }
       
-      // Chart.js scatter expects [{x, y}, ...]
-      const points = xValues.map((x, i) => ({ x, y: yValues[i] }))
+              // Chart.js scatter expects [{x, y}, ...]
+        const points = xValues.map((x: any, i: number) => ({ x, y: yValues[i] }))
       
       return {
         datasets: [{
@@ -161,8 +161,8 @@ function ChartRenderer({ chartData }: { chartData: any }) {
         yValues = Array.isArray(data.y) ? data.y : [data.y]
       }
       
-      // Create labels for x-axis
-      const labels = xValues.map((_, i) => `Point ${i+1}`)
+              // Create labels for x-axis
+        const labels = xValues.map((_: any, i: number) => `Point ${i+1}`)
       
       return {
         labels: labels,
@@ -468,7 +468,7 @@ export default function DataVisualization({ data, onDataUpdate, onChartGenerated
   useEffect(() => {
     if (!data || !data.columns_info) return;
     if (activeChart && !selectedColumn) {
-      const firstValid = data.columns_info.find(col => isColumnCompatible(col, activeChart));
+      const firstValid = data.columns_info.find((col: any) => isColumnCompatible(col, activeChart));
       if (firstValid) setSelectedColumn(firstValid.name);
     }
   }, [activeChart, data]);
@@ -1280,7 +1280,7 @@ export default function DataVisualization({ data, onDataUpdate, onChartGenerated
           {/* Chart Description */}
           <div className="mb-4 p-4 bg-blue-50 rounded-lg">
             <h3 className="font-medium text-blue-900 mb-2">
-              {basicChartTypes.find(c => c.id === activeChart)?.label || advancedChartTypes.find(c => c.id === activeChart)?.label}
+              {basicChartTypes.find((c: any) => c.id === activeChart)?.label || advancedChartTypes.find((c: any) => c.id === activeChart)?.label}
             </h3>
             <p className="text-sm text-blue-700">
               {activeChart === 'missing' && 'Visualize missing data patterns as a bar chart'}
