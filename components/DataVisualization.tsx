@@ -978,7 +978,7 @@ export default function DataVisualization({ data, onDataUpdate, onChartGenerated
       const data = chartData.data[0];
       let chartType = data.type || 'bar';
       let chartDataConfig = {};
-      let chartOptions = {
+      let chartOptions: any = {
         responsive: true,
         maintainAspectRatio: false,
       };
