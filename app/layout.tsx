@@ -4,10 +4,12 @@ import Pattern from '@/components/Pattern'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import './uiverse-sidebar.css'
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Easy AI Analytics',
-  description: 'Powerful data analysis and visualization platform',
-}
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
 
 export default function RootLayout({
   children,

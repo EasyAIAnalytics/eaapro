@@ -12,4 +12,6 @@ passlib
 bcrypt
 kaleido
 matplotlib
-Pillow 
+Pillow
+sqlalchemy
+sqlite3 

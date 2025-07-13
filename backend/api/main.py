@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 import pandas as pd
@@ -27,8 +27,14 @@ import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
 from io import BytesIO
+import pickle
+from sqlalchemy.orm import Session
+from database import get_db, create_tables, Dataset, SavedData
 
 app = FastAPI(title="Easy AI Analytics API", version="1.0.0")
+
+# Initialize database
+create_tables()
 
 # CORS middleware
 app.add_middleware(
@@ -815,7 +821,7 @@ async def root():
     return {"message": "Easy AI Analytics API", "version": "1.0.0"}
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db)):
     """Upload CSV or Excel file and return data analysis"""
     global current_data, current_cleaned_data
     
@@ -851,12 +857,39 @@ async def upload_file(file: UploadFile = File(...)):
         
         # Process data
         processor = DataProcessor(df)
+        basic_info = processor.get_basic_info()
+        column_info = processor.get_column_info()
+        preview = processor.get_preview()
+        
+        # Save to database
+        dataset = Dataset(
+            name=file.filename,
+            filename=file.filename,
+            file_size=int(basic_info['file_size'].replace(' KB', '').replace(' MB', '')),
+            rows=basic_info['rows'],
+            columns=basic_info['columns'],
+            data_preview=json.dumps(preview),
+            column_info=json.dumps(column_info)
+        )
+        db.add(dataset)
+        db.commit()
+        db.refresh(dataset)
+        
+        # Save original data
+        saved_data = SavedData(
+            dataset_id=dataset.id,
+            data_type='original',
+            data_content=pickle.dumps(df)
+        )
+        db.add(saved_data)
+        db.commit()
         
         return {
-            "message": "File uploaded successfully",
-            "basic_info": processor.get_basic_info(),
-            "column_info": processor.get_column_info(),
-            "preview": processor.get_preview()
+            "message": "File uploaded and saved successfully",
+            "dataset_id": dataset.id,
+            "basic_info": basic_info,
+            "column_info": column_info,
+            "preview": preview
         }
         
     except HTTPException:
@@ -866,10 +899,38 @@ async def upload_file(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
 
 @app.get("/saved-data")
-async def get_saved_data():
-    """Return saved dataset from database (placeholder)"""
-    # In production, this would fetch from a database
-    return {"message": "No saved data available", "data": None}
+async def get_saved_data(db: Session = Depends(get_db)):
+    """Return saved datasets from database"""
+    try:
+        datasets = db.query(Dataset).order_by(Dataset.created_at.desc()).all()
+        
+        if not datasets:
+            return {"message": "No saved data available", "data": None}
+        
+        # Return the most recent dataset
+        latest_dataset = datasets[0]
+        
+        # Load the actual data
+        saved_data = db.query(SavedData).filter(
+            SavedData.dataset_id == latest_dataset.id,
+            SavedData.data_type == 'original'
+        ).first()
+        
+        if saved_data:
+            df = pickle.loads(saved_data.data_content)
+            processor = DataProcessor(df)
+            
+            return {
+                "message": "Saved data loaded successfully",
+                "basic_info": processor.get_basic_info(),
+                "column_info": processor.get_column_info(),
+                "preview": processor.get_preview()
+            }
+        else:
+            return {"message": "No saved data available", "data": None}
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading saved data: {str(e)}")
 
 @app.get("/sample-data")
 async def get_sample_data():
