@@ -10,5 +10,6 @@ reportlab
 python-jose
 passlib
 bcrypt
-kaleido 
+kaleido
 matplotlib
+Pillow
