@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { BarChart3, PieChart, TrendingUp, BarChart, Download, RefreshCw } from 'lucide-react'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { buildApiUrl } from '@/lib/config'
 const HeatMap = dynamic(() => import('react-heatmap-grid'), { ssr: false })
 
 // Chart Renderer Component

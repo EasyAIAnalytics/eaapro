@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { FileText, Download, Settings, Eye, RefreshCw } from 'lucide-react'
 import axios from 'axios'
 import DownloadButton from './DownloadButton';
+import { buildApiUrl } from '@/lib/config'
 
 interface ReportGenerationProps {
   data: any
