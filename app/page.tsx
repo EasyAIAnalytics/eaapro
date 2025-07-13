@@ -6,7 +6,12 @@ import DataUpload from '@/components/DataUpload'
 import DataExploration from '@/components/DataExploration'
 import DataVisualization from '@/components/DataVisualization'
 import ReportGeneration from '@/components/ReportGeneration'
-import { buildApiUrl } from '../lib/config'
+
+// API Configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const buildApiUrl = (endpoint: string): string => {
+  return `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+};
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('upload')

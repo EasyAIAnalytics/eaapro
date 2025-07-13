@@ -3,7 +3,12 @@
 import { useState, useRef } from 'react'
 import { Upload, FileText, Database, Eye, TrendingUp, Shield } from 'lucide-react'
 import axios from 'axios'
-import { buildApiUrl } from '../lib/config'
+
+// API Configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const buildApiUrl = (endpoint: string): string => {
+  return `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+};
 
 interface DataUploadProps {
   onDataLoaded: (data: any) => void
