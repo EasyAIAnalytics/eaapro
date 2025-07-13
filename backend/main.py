@@ -45,6 +45,7 @@ app.add_middleware(
         "https://*.railway.app",  # Allow Railway deployments
         "https://*.render.com",   # Allow Render deployments
         "https://eaapro.vercel.app",  # Your specific frontend URL
+        "https://www.easyaianalytics.com",  # Production domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
