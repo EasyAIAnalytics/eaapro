@@ -41,7 +41,7 @@ const AnimatedLogoDots = () => {
   const requestRef = useRef();
   const lastTimestamp = useRef(null);
   useEffect(() => {
-    function animate(ts) {
+    function animate(ts: number) {
       if (lastTimestamp.current === null) lastTimestamp.current = ts;
       const elapsed = ts - lastTimestamp.current;
       let t = Math.min(elapsed / ANIMATION_DURATION, 1);
