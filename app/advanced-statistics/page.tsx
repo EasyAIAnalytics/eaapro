@@ -577,7 +577,12 @@ function HypothesisTestPanel({ data, onApply, setLoading, setError, setProgress 
 // Multivariate Analysis Panel
 function MultivariatePanel({ data, onApply, setLoading, setError, setProgress }: any) {
   const [analysisType, setAnalysisType] = useState('pca')
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    columns: string[];
+    nComponents: number;
+    targetColumn: string;
+    independentColumns: string[];
+  }>({
     columns: [],
     nComponents: 2,
     targetColumn: '',
