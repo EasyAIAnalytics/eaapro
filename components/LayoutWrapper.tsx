@@ -14,11 +14,50 @@ interface LayoutWrapperProps {
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [hasMounted, setHasMounted] = useState(false)
+  const [sidebarPinned, setSidebarPinned] = useState(false)
   const pathname = usePathname();
 
   useEffect(() => {
     setHasMounted(true)
+    if (typeof window !== 'undefined') {
+      setSidebarPinned(localStorage.getItem('sidebarPinned') === 'true');
+    }
   }, [])
+
+  useEffect(() => {
+    if (sidebarPinned) setSidebarOpen(true);
+  }, [sidebarPinned]);
+
+  useEffect(() => {
+    if (!sidebarPinned) setSidebarOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    // Example: Fetch user profile from Supabase (do not affect auth logic)
+    async function fetchProfile() {
+      const user = await getCurrentUser();
+      if (user && user.data && user.data.user) {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.data.user.id)
+          .single();
+        if (error) {
+          console.error('Profile fetch error:', error.message);
+        } else {
+          console.log('User profile:', data);
+        }
+      }
+    }
+    fetchProfile();
+  }, []);
+
+  const handlePinToggle = () => {
+    setSidebarPinned(v => {
+      localStorage.setItem('sidebarPinned', !v ? 'true' : 'false');
+      return !v;
+    });
+  };
 
   if (!hasMounted) {
     // Prevent hydration mismatch by not rendering until client-side
@@ -27,17 +66,29 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <>
-      {/* Hamburger Menu */}
-      <button
-        className={`burger${sidebarOpen ? ' burger-closed' : ''}`}
-        aria-label="Toggle sidebar"
-        onClick={() => setSidebarOpen((v) => !v)}
-        style={{ position: 'fixed', top: 18, left: 18, zIndex: 1001 }}
-      >
-        <span style={{ background: '#0a3cff' }}></span>
-        <span style={{ background: '#0a3cff' }}></span>
-        <span style={{ background: '#0a3cff' }}></span>
-      </button>
+      {/* Hamburger Menu + Pin Switch Row */}
+      <div style={{ position: 'fixed', top: 18, left: 18, zIndex: 1001, display: 'flex', alignItems: 'center', gap: '100px' }}>
+        <button
+          className={`burger${sidebarOpen ? ' burger-closed' : ''}`}
+          aria-label="Toggle sidebar"
+          onClick={() => setSidebarOpen((v) => !v)}
+        >
+          <span style={{ background: '#0a3cff' }}></span>
+          <span style={{ background: '#0a3cff' }}></span>
+          <span style={{ background: '#0a3cff' }}></span>
+        </button>
+        {sidebarOpen && (
+          <div style={{ marginTop: '-2px' }}>
+            <label className="switch">
+              <input type="checkbox" checked={sidebarPinned} onChange={handlePinToggle} />
+              <span
+                className="slider"
+                title={sidebarPinned ? 'Unpin sidebar' : 'Pin sidebar'}
+              ></span>
+            </label>
+          </div>
+        )}
+      </div>
       {/* Sidebar */}
       <aside className={`sidebar-menu fixed top-0 left-0 h-full z-20${sidebarOpen ? '' : ' sidebar-closed'}`}>
         <nav style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
