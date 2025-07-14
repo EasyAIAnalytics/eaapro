@@ -27,8 +27,12 @@ const SHAPES = [
   [ { x: 8, y: 20 }, { x: 16, y: 14 }, { x: 20, y: 20 }, { x: 28, y: 26 }, { x: 34, y: 20 } ],
 ];
 const ANIMATION_DURATION = 1200;
-function lerp(a, b, t) { return a + (b - a) * t; }
-function interpolateShape(from, to, t) {
+function lerp(a: number, b: number, t: number): number { return a + (b - a) * t; }
+function interpolateShape(
+  from: { x: number; y: number }[],
+  to: { x: number; y: number }[],
+  t: number
+): { x: number; y: number }[] {
   return from.map((pt, i) => ({ x: lerp(pt.x, to[i].x, t), y: lerp(pt.y, to[i].y, t) }));
 }
 const AnimatedLogoDots = () => {
