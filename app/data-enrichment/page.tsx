@@ -38,12 +38,14 @@ function interpolateShape(
 const AnimatedLogoDots = () => {
   const [shapeIdx, setShapeIdx] = useState(0);
   const [progress, setProgress] = useState(0);
-  const requestRef = useRef();
-  const lastTimestamp = useRef(null);
+  const requestRef = useRef<number>();
+  const lastTimestamp = useRef<number | null>(null);
   useEffect(() => {
     function animate(ts: number) {
-      if (lastTimestamp.current === null) lastTimestamp.current = ts;
-      const elapsed = ts - lastTimestamp.current;
+      if (lastTimestamp.current === null) {
+        lastTimestamp.current = ts;
+      }
+      const elapsed = lastTimestamp.current !== null ? ts - lastTimestamp.current : 0;
       let t = Math.min(elapsed / ANIMATION_DURATION, 1);
       setProgress(t);
       if (t < 1) {
