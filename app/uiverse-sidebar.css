@@ -1,12 +1,12 @@
 /* Uiverse.io sidebar styles, adapted for vertical nav and blue theme */
 .sidebar-menu {
-  width: 220px;
+  width: 280px;
   background: rgba(255,255,255,0.92);
   background-image: radial-gradient(rgba(10,60,255,0.25) 1px, transparent 1px);
   background-size: 30px 30px;
   border-right: 1.5px solid #e5e5f7;
   box-shadow: 2px 0 8px 0 rgba(10,60,255,0.04);
-  padding-top: 110px; /* Increased to avoid hamburger menu overlap */
+  padding-top: 120px; /* Increased to avoid hamburger menu overlap */
   padding-bottom: 32px;
   display: flex;
   flex-direction: column;
@@ -16,18 +16,18 @@
   will-change: transform;
 }
 .sidebar-closed {
-  transform: translateX(-240px);
+  transform: translateX(-300px);
 }
 .menu {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
   color: #222;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Increased gap between buttons */
+  gap: 20px; /* Increased gap between buttons */
   list-style: none;
-  padding: 0 20px; /* Increased horizontal padding */
+  padding: 0 24px; /* Increased horizontal padding */
 }
 .menu a {
   text-decoration: none;
@@ -48,15 +48,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   text-align: center;
   background-color: white;
   color: #1d4ed8;
   border-radius: 10em;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 0.7em 1.5em;
+  padding: 0.8em 1.8em;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border: 1px solid #1d4ed8;
@@ -77,8 +77,8 @@
 }
 
 .menu .link svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: inline-block;
 }
 
@@ -100,10 +100,10 @@
 
 .burger span {
   display: block;
-  width: 30px;
-  height: 3px;
+  width: 35px;
+  height: 4px;
   background: #0a3cff;
-  margin: 6px 0;
+  margin: 7px 0;
   border-radius: 2px;
   transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
     opacity 0.3s ease;
@@ -129,16 +129,16 @@
 
 @media (max-width: 900px) {
   .sidebar-menu {
-    width: 160px;
-    padding-top: 90px; /* Adjusted for mobile */
+    width: 200px;
+    padding-top: 100px; /* Adjusted for mobile */
     padding-bottom: 16px;
   }
   .menu {
-    padding: 0 12px; /* Reduced padding for mobile */
-    gap: 12px; /* Slightly reduced gap for mobile */
+    padding: 0 16px; /* Reduced padding for mobile */
+    gap: 16px; /* Slightly reduced gap for mobile */
   }
   .menu .link {
-    font-size: 12px;
-    padding: 0.6em 1.1em; /* Adjusted padding for mobile */
+    font-size: 14px;
+    padding: 0.7em 1.4em; /* Adjusted padding for mobile */
   }
 } 

@@ -50,7 +50,7 @@ export default function HomePage() {
             <div className="flex items-center space-x-4">
               {/* 3D Logo - Animated Dots Morphing Between Shapes */}
               <div className="relative group">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:animate-shake group-active:scale-110" style={{ willChange: 'transform' }}>
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:animate-shake group-active:scale-110" style={{ willChange: 'transform' }}>
                   <AnimatedLogoDots />
                 </div>
                 <style jsx>{`
@@ -66,18 +66,18 @@ export default function HomePage() {
                 `}</style>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   Easy AI Analytics
                 </h1>
-                <p className="text-sm text-blue-600 font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-base text-blue-600 font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Turn data into decisions
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 bg-blue-50 px-3 py-1 rounded-full">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-blue-700 font-medium" style={{ fontFamily: 'Lato, sans-serif' }}>v1.0</span>
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-base text-blue-700 font-medium" style={{ fontFamily: 'Lato, sans-serif' }}>v1.0</span>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function HomePage() {
                   className={`${activeTab === tab.id ? 'btn-primary scale-105' : 'btn-secondary'} btn-sm transition-all duration-200 hover:scale-105`}
                 >
                   <span className="button_top flex items-center space-x-2">
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-5 w-5" />
                     <span style={{ fontFamily: 'Inter, sans-serif' }}>{tab.label}</span>
                   </span>
                 </button>
@@ -118,34 +118,34 @@ export default function HomePage() {
                 </div>
                 <div className="mb-12">
                   <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow border border-blue-100 mb-8">
-                    <h3 className="text-xl font-bold text-gray-800 mb-4 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                       How to Get Started
                     </h3>
                     <div className="flex flex-col md:flex-row justify-center items-center gap-6">
                       <div className="flex flex-col items-center text-center flex-1 min-w-[180px]">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-2 shadow">
-                          <span className="text-lg font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>1</span>
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-2 shadow">
+                          <span className="text-xl font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>1</span>
                         </div>
-                        <h4 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Upload Your Data</h4>
-                        <p className="text-gray-600 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <h4 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Upload Your Data</h4>
+                        <p className="text-gray-600 text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
                           Drag & drop CSV or Excel files, or load our sample dataset
                         </p>
                       </div>
                       <div className="flex flex-col items-center text-center flex-1 min-w-[180px]">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mb-2 shadow">
-                          <span className="text-lg font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>2</span>
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mb-2 shadow">
+                          <span className="text-xl font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>2</span>
                         </div>
-                        <h4 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Explore & Analyze</h4>
-                        <p className="text-gray-600 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <h4 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Explore & Analyze</h4>
+                        <p className="text-gray-600 text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
                           Review your data structure and check for missing values
                         </p>
                       </div>
                       <div className="flex flex-col items-center text-center flex-1 min-w-[180px]">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-2 shadow">
-                          <span className="text-lg font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>3</span>
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-2 shadow">
+                          <span className="text-xl font-bold text-white" style={{ fontFamily: 'Rubik, sans-serif' }}>3</span>
                         </div>
-                        <h4 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Visualize & Report</h4>
-                        <p className="text-gray-600 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        <h4 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Visualize & Report</h4>
+                        <p className="text-gray-600 text-base" style={{ fontFamily: 'Inter, sans-serif' }}>
                           Create charts and generate reports from your insights
                         </p>
                       </div>
@@ -153,25 +153,25 @@ export default function HomePage() {
                   </div>
                   {/* Feature Cards - less visually dominant */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-white/70 rounded-xl p-4 shadow border border-blue-100 flex flex-col items-center">
-                      <Upload className="w-7 h-7 text-blue-500 mb-2" />
-                      <h3 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Smart Upload</h3>
-                      <p className="text-gray-600 text-xs text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Drag & drop your data files and let our platform handle the rest</p>
+                    <div className="bg-white/70 rounded-xl p-5 shadow border border-blue-100 flex flex-col items-center">
+                      <Upload className="w-8 h-8 text-blue-500 mb-2" />
+                      <h3 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Smart Upload</h3>
+                      <p className="text-gray-600 text-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Drag & drop your data files and let our platform handle the rest</p>
                     </div>
-                    <div className="bg-white/70 rounded-xl p-4 shadow border border-green-100 flex flex-col items-center">
-                      <Database className="w-7 h-7 text-green-500 mb-2" />
-                      <h3 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sample Data</h3>
-                      <p className="text-gray-600 text-xs text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Test the platform with our pre-loaded sample datasets</p>
+                    <div className="bg-white/70 rounded-xl p-5 shadow border border-green-100 flex flex-col items-center">
+                      <Database className="w-8 h-8 text-green-500 mb-2" />
+                      <h3 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Sample Data</h3>
+                      <p className="text-gray-600 text-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Test the platform with our pre-loaded sample datasets</p>
                     </div>
-                    <div className="bg-white/70 rounded-xl p-4 shadow border border-purple-100 flex flex-col items-center">
-                      <TrendingUp className="w-7 h-7 text-purple-500 mb-2" />
-                      <h3 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Visual Insights</h3>
-                      <p className="text-gray-600 text-xs text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Beautiful charts and graphs that tell your data's story</p>
+                    <div className="bg-white/70 rounded-xl p-5 shadow border border-purple-100 flex flex-col items-center">
+                      <TrendingUp className="w-8 h-8 text-purple-500 mb-2" />
+                      <h3 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Visual Insights</h3>
+                      <p className="text-gray-600 text-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Beautiful charts and graphs that tell your data's story</p>
                     </div>
-                    <div className="bg-white/70 rounded-xl p-4 shadow border border-orange-100 flex flex-col items-center">
-                      <Shield className="w-7 h-7 text-orange-500 mb-2" />
-                      <h3 className="text-base font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Secure & Fast</h3>
-                      <p className="text-gray-600 text-xs text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Enterprise-grade security with lightning-fast processing</p>
+                    <div className="bg-white/70 rounded-xl p-5 shadow border border-orange-100 flex flex-col items-center">
+                      <Shield className="w-8 h-8 text-orange-500 mb-2" />
+                      <h3 className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Secure & Fast</h3>
+                      <p className="text-gray-600 text-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>Enterprise-grade security with lightning-fast processing</p>
                     </div>
                   </div>
                 </div>
@@ -298,7 +298,7 @@ const AnimatedLogoDots: React.FC = () => {
   const dots = interpolateShape(from, to, progress);
 
   return (
-    <svg className="w-9 h-9 text-white" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-12 h-12 text-white" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       {dots.map((pt, i) => (
         <circle
           key={i}

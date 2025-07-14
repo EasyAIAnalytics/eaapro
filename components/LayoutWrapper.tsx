@@ -71,7 +71,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
         </nav>
       </aside>
       {/* Main Content */}
-      <div className="relative z-10" style={{ marginLeft: sidebarOpen ? '220px' : '0', minHeight: '100vh', transition: 'margin-left 0.3s cubic-bezier(0.23, 1, 0.32, 1)' }}>
+      <div className="relative z-10" style={{ marginLeft: sidebarOpen ? '280px' : '0', minHeight: '100vh', transition: 'margin-left 0.3s cubic-bezier(0.23, 1, 0.32, 1)' }}>
         {children}
       </div>
     </>

@@ -1,157 +1,106 @@
-# Easy AI Analytics
+# Easy AI Analytics (EAA)
 
-A powerful web application for data analysis, visualization, and report generation built with Next.js and FastAPI.
+**Turn data into decisions** - A modern web app for data analysis, visualization, and AI-powered insights.
 
-## Features
+## 🎯 Goal
+Build an intuitive platform that makes data analysis accessible to everyone, from basic data cleaning to advanced AI-powered insights.
 
-- **Data Upload**: Support for CSV and Excel files
-- **Data Exploration**: Comprehensive data analysis and statistics
-- **Data Cleaning**: Handle missing values, outliers, and data type conversion
-- **Data Visualization**: Interactive charts and graphs
-- **Report Generation**: Create professional PDF reports
-- **Sample Data**: Built-in sample sales dataset for demonstration
+## 📁 Project Structure
 
-## Tech Stack
+### Frontend (Next.js)
+- **`app/`** - Main pages and layouts
+  - `page.tsx` - Homepage with data upload and overview
+  - `globals.css` - Global styles and animations
+  - `layout.tsx` - Root layout with navigation
+- **`components/`** - Reusable UI components
+  - `DataUpload.tsx` - File upload interface
+  - `DataExploration.tsx` - Data preview and basic stats
+  - `DataVisualization.tsx` - Charts and graphs
+  - `ReportGeneration.tsx` - AI-powered report creation
+  - `AdvancedFormulas.tsx` - VLOOKUP, XLOOKUP, DAX formulas
+- **`lib/`** - Utilities and configuration
+- **`types/`** - TypeScript type definitions
 
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS, Chart.js
-- **Backend**: FastAPI (Python), Pandas, Plotly
-- **Database**: SQLite (planned for future)
-- **Authentication**: JWT (planned for future)
+### Backend (FastAPI)
+- **`backend/`** - Python API server
+  - `main.py` - Main API entry point
+  - `routes/` - API endpoints organized by feature
+    - `upload.py` - File upload handling
+    - `data_processing.py` - Data cleaning and transformation
+    - `visualization.py` - Chart generation
+    - `reporting.py` - AI report creation
+    - `formulas.py` - Advanced lookup formulas
+  - `database.py` - Simple file-based data storage
+  - `requirements.txt` - Python dependencies
 
-## Quick Start
+### Data & Config
+- **`data/`** - Sample datasets and uploaded files
+- **`public/`** - Static assets
+- **`package.json`** - Frontend dependencies
+- **`vercel.json`** - Deployment configuration
 
-### Prerequisites
+## 🚀 Current Features
 
-- Node.js 18+ 
-- Python 3.8+
-- npm or yarn
+### Data Management
+- Upload CSV/Excel files
+- Data preview and exploration
+- Basic statistics and column info
+- Data cleaning and transformation
 
-### Installation
+### Visualization
+- Interactive charts (bar, line, scatter, heatmap)
+- Customizable chart options
+- Export charts as images
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd easy-ai-analytics
-   ```
+### AI-Powered Reports
+- Automated insights generation
+- Trend analysis
+- Anomaly detection
+- Professional report formatting
 
-2. **Install frontend dependencies**
-   ```bash
-   npm install
-   ```
+### Advanced Formulas
+- VLOOKUP functionality
+- XLOOKUP with multiple criteria
+- DAX LOOKUPVALUE formulas
+- Lookup table management
 
-3. **Install backend dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+## 🔮 Future Roadmap
 
-### Running the Application
+### Short Term
+- [ ] User authentication and data persistence
+- [ ] More chart types (pie, radar, 3D)
+- [ ] Real-time data streaming
+- [ ] Mobile-responsive design
 
-1. **Start the backend server**
-   ```bash
-   cd backend
-   python main.py
-   ```
-   The API will be available at `http://localhost:8000`
+### Medium Term
+- [ ] Machine learning model integration
+- [ ] Predictive analytics
+- [ ] Natural language query interface
+- [ ] Collaborative workspaces
 
-2. **Start the frontend development server**
-   ```bash
-   npm run dev
-   ```
-   The application will be available at `http://localhost:3000`
+### Long Term
+- [ ] Enterprise features (SSO, RBAC)
+- [ ] Advanced AI models (GPT-4, Claude)
+- [ ] Real-time collaboration
+- [ ] API marketplace for integrations
 
-3. **Open your browser**
-   Navigate to `http://localhost:3000` to start using the application
+## 🛠 Tech Stack
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Backend**: FastAPI, Python, Pandas, NumPy
+- **AI/ML**: OpenAI API, scikit-learn
+- **Deployment**: Vercel (frontend), Railway (backend)
+- **Database**: File-based (upgradable to PostgreSQL/MongoDB)
 
-## Usage
+## 🚀 Quick Start
+```bash
+# Frontend
+npm install
+npm run dev
 
-### 1. Data Upload
-- Upload your CSV or Excel files
-- Load the built-in sample sales data
-- View data preview and statistics
-
-### 2. Data Exploration
-- Analyze column information and data types
-- View missing value statistics
-- Explore data distributions
-
-### 3. Data Cleaning
-- Handle missing values with various strategies
-- Detect and manage outliers
-- Convert data types as needed
-
-### 4. Data Visualization
-- Create interactive charts and graphs
-- Choose from multiple chart types
-- Customize chart parameters
-
-### 5. Report Generation
-- Configure report settings
-- Select charts to include
-- Generate professional PDF reports
-
-## API Endpoints
-
-- `GET /` - API health check
-- `POST /upload` - Upload CSV/Excel file
-- `GET /sample-data` - Load sample sales data
-- `GET /saved-data` - Load saved datasets
-- `GET /data-info` - Get current data information
-
-## Sample Data
-
-The application includes a sample sales dataset with:
-- 500 sales transaction records
-- 7 columns: Date, Product, Region, Units Sold, Unit Price, Total Sales, Customer Satisfaction
-- Realistic business data with missing values and outliers for demonstration
-
-## Development
-
-### Project Structure
-```
-easy-ai-analytics/
-├── app/                    # Next.js app directory
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
-├── components/            # React components
-│   ├── DataUpload.tsx     # File upload component
-│   ├── DataExploration.tsx # Data analysis component
-│   ├── DataVisualization.tsx # Charts component
-│   └── ReportGeneration.tsx # Report generation component
-├── backend/               # FastAPI backend
-│   └── main.py           # Main API application
-├── package.json          # Frontend dependencies
-├── requirements.txt      # Backend dependencies
-└── README.md            # This file
+# Backend
+cd backend
+pip install -r requirements.txt
+python main.py
 ```
 
-### Adding New Features
-
-1. **Frontend**: Add new components in the `components/` directory
-2. **Backend**: Add new endpoints in `backend/main.py`
-3. **Styling**: Use Tailwind CSS classes for consistent design
-
-## Future Enhancements
-
-- [ ] Database integration (SQLite/PostgreSQL)
-- [ ] User authentication and authorization
-- [ ] Advanced machine learning features
-- [ ] Real-time data processing
-- [ ] Cloud deployment support
-- [ ] Mobile responsive design improvements
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For support and questions, please open an issue in the repository. 
+Visit `http://localhost:3000` to start analyzing data! 
