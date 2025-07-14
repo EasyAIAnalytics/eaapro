@@ -435,7 +435,7 @@ function HypothesisTestPanel({ data, onApply, setLoading, setError, setProgress 
     try {
       // Simulate progress
       const progressInterval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev: number) => {
           if (prev >= 90) {
             clearInterval(progressInterval)
             return 90
@@ -600,7 +600,7 @@ function MultivariatePanel({ data, onApply, setLoading, setError, setProgress }:
 
     try {
       const progressInterval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev: number) => {
           if (prev >= 90) {
             clearInterval(progressInterval)
             return 90
@@ -793,7 +793,7 @@ function BayesianPanel({ data, onApply, setLoading, setError, setProgress }: any
 
     try {
       const progressInterval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev: number) => {
           if (prev >= 90) {
             clearInterval(progressInterval)
             return 90
