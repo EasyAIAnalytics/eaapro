@@ -6,6 +6,8 @@ openpyxl
 plotly
 numpy
 scikit-learn
+scipy
+statsmodels
 reportlab
 python-jose
 passlib

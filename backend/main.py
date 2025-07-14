@@ -1,15 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.database import create_tables
-from backend.routes.upload import router as upload_router
-from backend.routes.data import router as data_router
-from backend.routes.visualize import router as visualize_router
-from backend.routes.report import router as report_router
-from backend.routes.export import router as export_router
-from backend.routes.sample import router as sample_router
-from backend.routes.data_info import router as data_info_router
-from backend.routes.lookup_tables import router as lookup_tables_router
-from backend.routes.formulas import router as formulas_router
+from database import create_tables
+from database import get_db, Dataset, SavedData
+from routes.upload import router as upload_router
+from routes.data import router as data_router
+from routes.visualize import router as visualize_router
+from routes.report import router as report_router
+from routes.export import router as export_router
+from routes.sample import router as sample_router
+from routes.data_info import router as data_info_router
+from routes.lookup_tables import router as lookup_tables_router
+from routes.formulas import router as formulas_router
+from routes.statistics import router as statistics_router
 
 app = FastAPI(title="Easy AI Analytics API", version="1.0.0")
 
@@ -49,6 +51,7 @@ app.include_router(sample_router)
 app.include_router(data_info_router)
 app.include_router(lookup_tables_router)
 app.include_router(formulas_router)
+app.include_router(statistics_router)
 
 if __name__ == "__main__":
     import uvicorn

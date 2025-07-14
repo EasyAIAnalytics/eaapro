@@ -2,8 +2,8 @@ from fastapi import APIRouter
 import numpy as np
 import pandas as pd
 import random
-from backend.data_processing import DataProcessor
-from backend.shared_state import set_current_data, set_current_cleaned_data
+from data_processing import DataProcessor
+from shared_state import set_current_data, set_current_cleaned_data
 
 router = APIRouter()
 

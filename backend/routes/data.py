@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Form
 from typing import Optional
-from backend.data_processing import DataProcessor
-from backend.shared_state import get_current_data, get_current_cleaned_data, set_current_cleaned_data
+from data_processing import DataProcessor
+from shared_state import get_current_data, get_current_cleaned_data, set_current_cleaned_data
 
 router = APIRouter()
 

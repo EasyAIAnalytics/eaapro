@@ -258,84 +258,112 @@ export default function AdvancedFormulasPage() {
   )
 }
 
-// Animated Logo Component (same as homepage)
+// AnimatedLogoDots with morphing animation from home page
+const SHAPES = [
+  // Line chart (ascending)
+  [
+    { x: 8,  y: 32 },
+    { x: 16, y: 26 },
+    { x: 20, y: 20 },
+    { x: 28, y: 14 },
+    { x: 34, y: 8 },
+  ],
+  // Bar chart (evenly spaced, different heights)
+  [
+    { x: 8,  y: 32 },
+    { x: 16, y: 24 },
+    { x: 20, y: 12 },
+    { x: 28, y: 20 },
+    { x: 34, y: 28 },
+  ],
+  // Circle
+  Array.from({ length: 5 }).map((_, i) => {
+    const angle = (2 * Math.PI * i) / 5 - Math.PI / 2;
+    return {
+      x: 20 + 10 * Math.cos(angle),
+      y: 20 + 10 * Math.sin(angle),
+    };
+  }),
+  // Spiral
+  Array.from({ length: 5 }).map((_, i) => {
+    const t = i / 4 * 2 * Math.PI;
+    const r = 4 + 2.5 * i;
+    return {
+      x: 20 + r * Math.cos(t - Math.PI / 2),
+      y: 20 + r * Math.sin(t - Math.PI / 2),
+    };
+  }),
+  // Wave (sinusoidal)
+  [
+    { x: 8,  y: 20 },
+    { x: 16, y: 14 },
+    { x: 20, y: 20 },
+    { x: 28, y: 26 },
+    { x: 34, y: 20 },
+  ],
+];
+
+const ANIMATION_DURATION = 1200; // ms per morph
+
 function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t
+  return a + (b - a) * t;
 }
 
 function interpolateShape(from: { x: number; y: number }[], to: { x: number; y: number }[], t: number) {
-  return from.map((point, i) => ({
-    x: lerp(point.x, to[i].x, t),
-    y: lerp(point.y, to[i].y, t)
-  }))
+  return from.map((pt, i) => ({
+    x: lerp(pt.x, to[i].x, t),
+    y: lerp(pt.y, to[i].y, t),
+  }));
 }
 
 const AnimatedLogoDots: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  
+  const [shapeIdx, setShapeIdx] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const requestRef = useRef<number>();
+  const lastTimestamp = useRef<number | null>(null);
+
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    
-    canvas.width = 64
-    canvas.height = 64
-    
-    const shapes = [
-      // Square (4 points)
-      [{ x: 8, y: 8 }, { x: 40, y: 8 }, { x: 40, y: 40 }, { x: 8, y: 40 }],
-      // Triangle (4 points - last point repeats to match square)
-      [{ x: 24, y: 8 }, { x: 40, y: 40 }, { x: 8, y: 40 }, { x: 24, y: 8 }],
-      // Circle (4 points - simplified)
-      [{ x: 24, y: 8 }, { x: 40, y: 24 }, { x: 24, y: 40 }, { x: 8, y: 24 }]
-    ]
-    
-    let currentShape = 0
-    let animationFrame: number
-    
     function animate(ts: number) {
-      if (!ctx || !canvas) return
-      
-      const t = (ts % 3000) / 3000 // 3 second cycle
-      const shapeIndex = Math.floor(t * shapes.length)
-      const nextIndex = (shapeIndex + 1) % shapes.length
-      const localT = (t * shapes.length) % 1
-      
-      const currentPoints = shapes[shapeIndex]
-      const nextPoints = shapes[nextIndex]
-      
-      // Interpolate between shapes
-      const interpolatedPoints = interpolateShape(currentPoints, nextPoints, localT)
-      
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      // Draw shape
-      ctx.beginPath()
-      ctx.moveTo(interpolatedPoints[0].x, interpolatedPoints[0].y)
-      for (let i = 1; i < interpolatedPoints.length; i++) {
-        ctx.lineTo(interpolatedPoints[i].x, interpolatedPoints[i].y)
+      if (lastTimestamp.current === null) lastTimestamp.current = ts;
+      const elapsed = ts - lastTimestamp.current;
+      let t = Math.min(elapsed / ANIMATION_DURATION, 1);
+      setProgress(t);
+      if (t < 1) {
+        requestRef.current = requestAnimationFrame(animate);
+      } else {
+        setTimeout(() => {
+          setShapeIdx((idx) => (idx + 1) % SHAPES.length);
+          setProgress(0);
+          lastTimestamp.current = null;
+          requestRef.current = requestAnimationFrame(animate);
+        }, 400); // pause briefly on each shape
       }
-      ctx.closePath()
-      ctx.fillStyle = 'white'
-      ctx.fill()
-      
-      animationFrame = requestAnimationFrame(animate)
     }
-    
-    animate(0)
-    
+    requestRef.current = requestAnimationFrame(animate);
     return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
-      }
-    }
-  }, [])
-  
-  return <canvas ref={canvasRef} className="w-12 h-12" />
-}
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [shapeIdx]);
+
+  const from = SHAPES[shapeIdx];
+  const to = SHAPES[(shapeIdx + 1) % SHAPES.length];
+  const dots = interpolateShape(from, to, progress);
+
+  return (
+    <svg className="w-12 h-12 text-white" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {dots.map((pt, i) => (
+        <circle
+          key={i}
+          cx={pt.x}
+          cy={pt.y}
+          r={2.2}
+          fill="#fff"
+          style={{ filter: 'drop-shadow(0 1px 4px #60a5fa88)' }}
+        />
+      ))}
+    </svg>
+  );
+};
 
 // VLOOKUP Form Component
 function VLOOKUPForm({ data, lookupTables, selectedLookupTable, setSelectedLookupTable, onApply, setLoading, setError }: any) {

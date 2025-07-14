@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException, Form
 import json
 import base64
-from backend.data_processing import DataProcessor
-from backend.visualization import Visualizer
-from backend.reporting import ReportGenerator
-from backend.shared_state import get_current_cleaned_data
+from data_processing import DataProcessor
+from visualization import Visualizer
+from reporting import ReportGenerator
+from shared_state import get_current_cleaned_data
 
 router = APIRouter()
 

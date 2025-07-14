@@ -58,11 +58,6 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
               </Link>
             </div>
             <div className="item">
-              <Link href="/business-features" className="link">
-                <span>Business Features</span>
-              </Link>
-            </div>
-            <div className="item">
               <Link href="/data-enrichment" className="link">
                 <span>Data Enrichment</span>
               </Link>

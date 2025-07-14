@@ -4,8 +4,8 @@ import pandas as pd
 import io
 import json
 import pickle
-from backend.database import get_db, Dataset, SavedData
-from backend.data_processing import DataProcessor
+from database import get_db, Dataset, SavedData
+from data_processing import DataProcessor
 
 router = APIRouter()
 

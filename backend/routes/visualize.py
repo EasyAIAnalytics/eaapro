@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import Optional
-from backend.visualization import Visualizer
-from backend.shared_state import get_current_cleaned_data
+from visualization import Visualizer
+from shared_state import get_current_cleaned_data
 
 router = APIRouter()
 

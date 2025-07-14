@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import io
 
-from backend.shared_state import get_current_cleaned_data
+from shared_state import get_current_cleaned_data
 
 router = APIRouter()
 
