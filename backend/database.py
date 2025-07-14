@@ -33,6 +33,12 @@ class SavedData(Base):
     data_content = Column(LargeBinary)  # Pickled pandas DataFrame
     created_at = Column(DateTime, default=datetime.utcnow)
 
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+
 # Create tables
 def create_tables():
     Base.metadata.create_all(bind=engine)

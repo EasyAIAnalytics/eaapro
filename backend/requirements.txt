@@ -11,6 +11,7 @@ statsmodels
 reportlab
 python-jose
 passlib
+pyjwt
 bcrypt
 kaleido
 matplotlib
