@@ -5,6 +5,7 @@ import { buildApiUrl } from "@/lib/config";
 import { useRouter } from "next/navigation";
 import LoginBackground from "./LoginBackground";
 import "./login-form.css";
+import { signInWithEmail, signInWithGoogle, signInWithGitHub, getCurrentUser } from '@/lib/supabaseAuth';
 
 // AnimatedLogoDots from home page
 const SHAPES = [
@@ -75,28 +76,60 @@ export default function LoginPage() {
   const router = useRouter();
   const [remember, setRemember] = useState(false);
 
+  useEffect(() => {
+    getCurrentUser().then(({ data }) => {
+      if (data?.user) {
+        router.replace("/");
+      }
+    });
+  }, [router]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(buildApiUrl("/login"), {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ username: email, password }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        setError(data.detail || "Login failed");
+      const { error } = await signInWithEmail(email, password);
+      if (error) {
+        if (error.message && error.message.toLowerCase().includes('confirm')) {
+          setError('Invalid credentials or email not confirmed.');
+        } else if (error.message && error.message.toLowerCase().includes('password')) {
+          setError('Password must be at least 6 characters and include a letter and number.');
+        } else {
+          setError('Invalid credentials or email not confirmed.');
+        }
         setLoading(false);
         return;
       }
-      const data = await res.json();
-      localStorage.setItem("token", data.access_token);
-      // Always redirect to homepage
       window.location.href = "/";
     } catch (err) {
       setError("Network error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogle = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) setError(error.message || "Google sign in failed");
+    } catch (err) {
+      setError("Google sign in error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGitHub = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const { error } = await signInWithGitHub();
+      if (error) setError(error.message || "GitHub sign in failed");
+    } catch (err) {
+      setError("GitHub sign in error");
     } finally {
       setLoading(false);
     }
@@ -135,9 +168,16 @@ export default function LoginPage() {
             <svg viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg"><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"></path></svg>
           </div>
           <div className="flex-row">
-            <div>
-              <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} />
-              <label>Remember me</label>
+            <div className="cntr">
+              <input
+                type="checkbox"
+                id="cbx"
+                className="hidden-xs-up"
+                checked={remember}
+                onChange={e => setRemember(e.target.checked)}
+              />
+              <label htmlFor="cbx" className="cbx"></label>
+              <label htmlFor="cbx" className="lbl">Remember me</label>
             </div>
             <span className="span" onClick={() => setError('Forgot password not implemented')}>Forgot password?</span>
           </div>
@@ -150,11 +190,11 @@ export default function LoginPage() {
           <p className="p">Don't have an account? <span className="span" onClick={() => router.push('/signup')}>Sign Up</span></p>
           <p className="p line">Or With</p>
           <div className="flex flex-col items-center gap-3 w-full mt-2" style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <button className="signin w-full max-w-xs mx-auto" type="button" onClick={() => setError('Google sign in not implemented')}>
+            <button className="signin w-full max-w-xs mx-auto" type="button" onClick={handleGoogle}>
               <svg viewBox="0 0 256 262" preserveAspectRatio="xMidYMid" xmlns="http://www.w3.org/2000/svg"><path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"></path><path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"></path><path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"></path><path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"></path></svg>
               Sign in with Google
             </button>
-            <button className="signin w-full max-w-xs mx-auto" type="button" onClick={() => setError('GitHub sign in not implemented')}>
+            <button className="signin w-full max-w-xs mx-auto" type="button" onClick={handleGitHub}>
               <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0.297C5.373 0.297 0 5.67 0 12.297c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.304-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.984-.399 3.003-.404 1.018.005 2.046.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.625-5.475 5.921.43.371.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .321.218.694.825.576C20.565 22.092 24 17.594 24 12.297c0-6.627-5.373-12-12-12"/></svg>
               Sign in with GitHub
             </button>

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { FiLogOut, FiUser, FiHelpCircle, FiSend } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
+import { supabase } from '@/lib/config';
+import { signUpWithEmail, signInWithEmail, signInWithGoogle, signInWithGitHub, getCurrentUser } from '../lib/supabaseAuth';
 
 interface LayoutWrapperProps {
   children: React.ReactNode
